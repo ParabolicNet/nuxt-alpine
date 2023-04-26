@@ -1,24 +1,25 @@
 name: cd
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main # specify the branch explicitly
+  pull_request:
 
 jobs:
   cd:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [16]
+    runs-on: ubuntu-latest # specify the OS explicitly
 
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
+        with:
+          ref: main # specify the branch explicitly
 
       - name: Setup node env
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: '16'
 
       - name: Install dependencies
         run: yarn
@@ -29,5 +30,5 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.YOUR_GITHUB_TOKEN }} # use a personal access token instead of GITHUB_TOKEN
           publish_dir: ./dist
