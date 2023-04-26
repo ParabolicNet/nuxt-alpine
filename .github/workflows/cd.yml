@@ -33,4 +33,5 @@ jobs:
           github_token: ${{ secrets.YOUR_GITHUB_TOKEN }} # use a personal access token instead of GITHUB_TOKEN
           publish_dir: ./dist
           publish_branch: gh-pages
-          jekyll: false # disable Jekyll processing
+          jekyll: false
+          clean: true
